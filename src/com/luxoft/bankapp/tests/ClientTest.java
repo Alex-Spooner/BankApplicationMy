@@ -9,8 +9,10 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Gosh on 18.12.2016.
+ * Nothing special
  */
 public class ClientTest {
+
     @Test
     public void equalsMethodTest() {
         Client clientAnna = new Client("Anna", Gender.FEMALE);

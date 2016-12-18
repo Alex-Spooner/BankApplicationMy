@@ -8,16 +8,21 @@ public class CheckingAccount extends AbstractAccount {
 	private float overdraft;
 
 	public CheckingAccount(float overdraft) throws IllegalArgumentException {
-		if (overdraft >= 0) {
-			this.overdraft = overdraft;
-			uuid= UUID.randomUUID();
-            balance=0;
-		} else {
-			throw new IllegalArgumentException();
-		}
+		this(overdraft,0);
 	}
 
-	public void setOverdraft(float x) throws IllegalArgumentException {
+    public CheckingAccount(float overdraft, float balance) throws IllegalArgumentException {
+        if (overdraft >= 0) {
+            this.overdraft = overdraft;
+            uuid= UUID.randomUUID();
+            this.balance=balance;
+        } else {
+            throw new IllegalArgumentException();
+        }
+    }
+
+
+    public void setOverdraft(float x) throws IllegalArgumentException {
 		if (x >= 0) {
 			overdraft = x;
 		} else {

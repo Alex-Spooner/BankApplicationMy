@@ -25,5 +25,8 @@ public abstract class AbstractAccount implements Account {
 		return balance;
 	}
 
-
+	@Override
+	public int decimalValue() {
+		return Math.round(getBalance());
+	}
 }
