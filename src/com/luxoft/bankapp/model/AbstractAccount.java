@@ -1,7 +1,10 @@
 package com.luxoft.bankapp.model;
 
+import java.util.UUID;
+
 public abstract class AbstractAccount implements Account {
 	protected float balance;
+	UUID uuid;
 
 	@Override
 	public void printReport() {

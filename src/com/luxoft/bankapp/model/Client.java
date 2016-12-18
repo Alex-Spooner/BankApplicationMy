@@ -2,17 +2,19 @@ package com.luxoft.bankapp.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import com.luxoft.bankapp.exceptions.NotEnoughFundsException;
 
 public class Client implements Report {
 	private String name;
-	private List<Account> accounts = new ArrayList<Account>();
+	private List<Account> accounts = new ArrayList<>();
 	
 	private Account activeAccount;
 	private float initialOverdraft;
 	private float initialBalance;
 	private Gender gender;
+	UUID uuid;
 
 	public enum Gender {
 		MALE("Mr"), FEMALE("Ms");
@@ -34,6 +36,7 @@ public class Client implements Report {
 		this.name = name;
 		this.initialOverdraft = initialOverdraft;
 		this.gender = gender;
+		uuid = UUID.randomUUID();
 	}
 
 	public Client(String name, Gender gender) {
@@ -105,26 +108,26 @@ public class Client implements Report {
 
 	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Client client = (Client) o;
-
-        if (!name.equals(client.name)) return false;
-        return gender == client.gender;
-
-    }
-
 	public String getClientSalutation() {
 		return gender.getSalutation();
 	}
 
-	@Override
-	public int hashCode() {
-		int result = name.hashCode();
-		result = 31 * result + gender.hashCode();
-		return result;
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Client)) return false;
+
+        Client client = (Client) o;
+
+        return name.equals(client.name) && gender == client.gender && uuid.equals(client.uuid);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + gender.hashCode();
+        result = 31 * result + uuid.hashCode();
+        return result;
+    }
 }
