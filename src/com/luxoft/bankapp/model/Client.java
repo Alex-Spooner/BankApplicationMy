@@ -130,4 +130,18 @@ public class Client implements Report {
         result = 31 * result + uuid.hashCode();
         return result;
     }
+
+    @Override
+    @SuppressWarnings("all")
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Client{");
+        sb.append("gender=").append(gender);
+        sb.append(", initialBalance=").append(initialBalance);
+        sb.append(", initialOverdraft=").append(initialOverdraft);
+        sb.append(", activeAccount=").append(activeAccount);
+        for(Account account: accounts) sb.append(", account=").append(account.toString());
+        sb.append(", name='").append(name).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }

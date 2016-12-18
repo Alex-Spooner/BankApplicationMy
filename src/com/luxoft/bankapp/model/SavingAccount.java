@@ -44,5 +44,12 @@ public class SavingAccount extends AbstractAccount {
         return 31*Float.floatToIntBits(balance) + uuid.hashCode();
     }
 
-
+    @Override
+    @SuppressWarnings("all")
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("SavingAccount{");
+        sb.append("balance =").append(balance);
+        sb.append('}');
+        return sb.toString();
+    }
 }

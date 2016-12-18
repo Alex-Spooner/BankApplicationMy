@@ -54,4 +54,14 @@ public class CheckingAccount extends AbstractAccount {
     public int hashCode() {
         return 31*Float.floatToIntBits(overdraft) + uuid.hashCode();
     }
+
+    @Override
+    @SuppressWarnings("all")
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("CheckingAccount{");
+        sb.append("overdraft=").append(overdraft);
+        sb.append(", balance=").append(balance);
+        sb.append('}');
+        return sb.toString();
+    }
 }
