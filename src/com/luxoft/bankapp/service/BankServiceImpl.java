@@ -30,17 +30,20 @@ public class BankServiceImpl implements BankService {
 		client.setActiveAccount(account);
 	}
 
+	@Override
 	public Account createAccount(Client client, String accountType) {
 
 		return client.createAccount(accountType);
 	}
 
+	@Override
 	public void deposit(Client client, float x) {
 		client.deposit(x);
 	}
 
+	@Override
 	public void withdraw(Client client, float x)
-			throws NotEnoughFundsException, OverDraftLimitExceededException {
+			throws NotEnoughFundsException {
 		client.withdraw(x);
 	}
 
