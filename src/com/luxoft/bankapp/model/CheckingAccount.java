@@ -2,9 +2,10 @@ package com.luxoft.bankapp.model;
 
 import com.luxoft.bankapp.exceptions.OverDraftLimitExceededException;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class CheckingAccount extends AbstractAccount {
+public class CheckingAccount extends AbstractAccount implements Serializable {
 	private float overdraft;
 
 	public CheckingAccount(float overdraft) throws IllegalArgumentException {

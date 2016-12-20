@@ -1,12 +1,13 @@
 package com.luxoft.bankapp.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import com.luxoft.bankapp.exceptions.NotEnoughFundsException;
 
-public class Client implements Report {
+public class Client implements Report, Serializable {
 	private String name;
 	private List<Account> accounts = new ArrayList<>();
 	

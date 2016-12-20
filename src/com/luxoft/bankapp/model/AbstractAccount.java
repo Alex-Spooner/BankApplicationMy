@@ -1,8 +1,9 @@
 package com.luxoft.bankapp.model;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public abstract class AbstractAccount implements Account {
+public abstract class AbstractAccount implements Account, Serializable {
 	protected float balance;
 	UUID uuid;
 

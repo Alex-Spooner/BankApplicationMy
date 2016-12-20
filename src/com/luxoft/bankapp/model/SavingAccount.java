@@ -2,9 +2,10 @@ package com.luxoft.bankapp.model;
 
 import com.luxoft.bankapp.exceptions.NotEnoughFundsException;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class SavingAccount extends AbstractAccount {
+public class SavingAccount extends AbstractAccount implements Serializable {
 
     public SavingAccount(float initialBalance) throws IllegalArgumentException {
         if (initialBalance >= 0) {

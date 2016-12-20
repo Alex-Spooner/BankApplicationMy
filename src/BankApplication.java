@@ -5,13 +5,13 @@ import com.luxoft.bankapp.model.Account;
 import com.luxoft.bankapp.model.Bank;
 import com.luxoft.bankapp.model.Client;
 import com.luxoft.bankapp.model.Client.Gender;
-import com.luxoft.bankapp.service.BankDataLoaderService;
 import com.luxoft.bankapp.service.BankDataLoaderServiceImpl;
 import com.luxoft.bankapp.service.BankService;
 import com.luxoft.bankapp.service.BankServiceImpl;
 
 import java.io.File;
-import java.util.*;
+import java.util.Map;
+import java.util.Objects;
 
 import static com.luxoft.bankapp.utils.Logger.log;
 
@@ -21,8 +21,6 @@ public class BankApplication {
     static Bank bank = new Bank();
 
     public static void main(String[] args) {
-
-        log(Arrays.asList(args));
 
         initialize(bank);
         modifyBank(client, 0, 500);
@@ -50,18 +48,18 @@ public class BankApplication {
         try {
             bankService.withdraw(client1, 50);
         } catch (NotEnoughFundsException e) {
-            System.out.println("Not enough funds");
+            log("Not enough funds");
         }
 
         bankService.addAccount(client1, account1);
 
 		/*
-		 * Information in catch clauses are just for test purposes
+         * Information in catch clauses are just for test purposes
 		 */
         try {
             bankService.addClient(ubs, client1);
         } catch (ClientExistsException e) {
-            System.out.println("Client with that name already exists");
+            log("Client with that name already exists");
         }
 
         client1.setInitialOverdraft(1000);
@@ -71,13 +69,19 @@ public class BankApplication {
         try {
             bankService.withdraw(client1, 10500);
         } catch (OverDraftLimitExceededException e) {
-            System.out.println(e.getMessage());
+            log(e.getMessage());
         } catch (NotEnoughFundsException e) {
-            System.out.println("Not enough funds");
+            log("Not enough funds");
         }
         bankService.addAccount(client1, account2);
-        //ubs.printReport();
-        System.out.println(client1);
+        log(client1);
+
+        //Serialization experiments
+        ubs.printReport();
+        bankService.saveBank(ubs);
+        Bank ubsClone = bankService.readBank();
+        ubsClone.printReport();
+
     }
 
     /*
@@ -90,7 +94,7 @@ public class BankApplication {
         try {
             client.withdraw(100);
         } catch (NotEnoughFundsException e) {
-            System.out.println("Not enough funds");
+            log("Not enough funds");
         }
         client.addAccount(clientSaving);
 
@@ -103,12 +107,12 @@ public class BankApplication {
         try {
             bank.addClient(client);
         } catch (ClientExistsException e) {
-            System.out.println("Client with that name already exists");
+            log("Client with that name already exists");
         }
         try {
             bank.addClient(adam);
         } catch (ClientExistsException e) {
-            System.out.println("Client with that name already exists");
+            log("Client with that name already exists");
         }
 
     }
@@ -118,9 +122,9 @@ public class BankApplication {
         try {
             c.withdraw(withdraw);
         } catch (OverDraftLimitExceededException e) {
-            System.out.println(e.getMessage());
+            log(e.getMessage());
         } catch (NotEnoughFundsException e) {
-            System.out.println("Not enough funds");
+            log("Not enough funds");
         }
     }
 
@@ -131,10 +135,7 @@ public class BankApplication {
 
     public static void loadClientsFromFile(BankService bankService, String[] args) {
         if (args.length > 1 && args[0].equals("-loadfeed")) {
-            BankDataLoaderService loaderService = new BankDataLoaderServiceImpl();
-            File clientDataFile = new File(args[1]);
-            List<Map<String, String>> mapList = loaderService.loadClientsDataFromFile(clientDataFile);
-            for (Map<String, String> map : mapList) {
+            for (Map<String, String> map : new BankDataLoaderServiceImpl().loadClientsDataFromFile(new File(args[1]))) {
                 Client client = new Client(map.get("name"), Objects.equals(map.get("gender"), "m") ? Gender.MALE : Gender.FEMALE);
                 client.setInitialBalance(new Float(map.get("balance")));
                 Account account;

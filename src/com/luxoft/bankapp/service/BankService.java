@@ -24,4 +24,8 @@ public interface BankService {
 	void withdraw(Client client, float x)
 			throws NotEnoughFundsException;
 
+	void saveBank(Bank bank);
+
+	Bank readBank();
+
 }

@@ -1,11 +1,12 @@
 package com.luxoft.bankapp.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.luxoft.bankapp.exceptions.ClientExistsException;
 
-public class Bank implements Report {
+public class Bank implements Report, Serializable {
 
 	private List<Client> clients = new ArrayList<Client>();
 
