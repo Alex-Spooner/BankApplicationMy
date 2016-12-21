@@ -8,7 +8,7 @@ import com.luxoft.bankapp.exceptions.ClientExistsException;
 
 public class Bank implements Report, Serializable {
 
-	private List<Client> clients = new ArrayList<Client>();
+	private List<Client> clients = new ArrayList<>();
 
 	public List<Client> getClients() {
 		return clients;
@@ -46,4 +46,11 @@ public class Bank implements Report, Serializable {
 	public Bank() {
 	}
 
+	@Override
+	public String toString() {
+		final StringBuilder sb = new StringBuilder("Bank{");
+		for(Client client : clients) sb.append("client=").append(client.toString());
+		sb.append('}');
+		return sb.toString();
+	}
 }
